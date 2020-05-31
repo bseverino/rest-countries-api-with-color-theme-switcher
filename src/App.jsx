@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 import { fetchCountries } from './redux'
+import { theme, darkTheme } from './theme'
 
-import Home from './components/home'
+import Home from './pages/home'
 
 function App() {
   const dispatch = useDispatch()
-  const { countries } = useSelector((state) => state.countries)
+  const { darkMode, countries } = useSelector((state) => state.countries)
   console.log(countries)
 
   useEffect(() => {
@@ -15,9 +17,11 @@ function App() {
   }, [dispatch])
 
   return (
-    <Switch>
-      <Route path='/' component={Home} />
-    </Switch>
+    <ThemeProvider theme={darkMode ? darkTheme : theme}>
+      <Switch>
+        <Route path='/' component={Home} />
+      </Switch>
+    </ThemeProvider>
   )
 }
 
