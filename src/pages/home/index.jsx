@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 import Header from '../../components/header'
 import Search from '../../components/search'
+import Filter from '../../components/filter'
+import Cards from '../../components/cards'
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,10 +21,20 @@ const Wrapper = styled.div`
 `
 
 function Home() {
+  const { countries } = useSelector((state) => state.countries)
+  const [countryList, setCountryList] = useState(countries)
+  console.log(countryList)
+
+  useEffect(() => {
+    setCountryList(countries)
+  }, [countries])
+
   return (
     <Wrapper>
       <Header />
       <Search />
+      <Filter />
+      <Cards countries={countries} />
     </Wrapper>
   )
 }

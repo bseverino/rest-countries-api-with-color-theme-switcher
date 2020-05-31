@@ -9,8 +9,7 @@ import Home from './pages/home'
 
 function App() {
   const dispatch = useDispatch()
-  const { darkMode, countries } = useSelector((state) => state.countries)
-  console.log(countries)
+  const { darkMode } = useSelector((state) => state.countries)
 
   useEffect(() => {
     dispatch(fetchCountries())
