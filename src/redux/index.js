@@ -8,6 +8,8 @@ export const countriesSlice = createSlice({
     loading: false,
     error: null,
     countries: [],
+    searchQuery: '',
+    filterQuery: '',
   },
   reducers: {
     toggleDarkMode: (state) => {
@@ -25,6 +27,12 @@ export const countriesSlice = createSlice({
       state.loading = false
       state.error = action.payload
     },
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload
+    },
+    setFilterQuery: (state, action) => {
+      state.filterQuery = action.payload
+    },
   },
 })
 
@@ -33,6 +41,8 @@ const {
   startFetching,
   fetchSuccess,
   fetchFailure,
+  setSearchQuery,
+  setFilterQuery,
 } = countriesSlice.actions
 
 export const toggle = () => (dispatch) => {
@@ -50,6 +60,14 @@ export const fetchCountries = () => (dispatch) => {
     .catch((err) => {
       dispatch(fetchFailure(err.data))
     })
+}
+
+export const setSearch = (query) => (dispatch) => {
+  dispatch(setSearchQuery(query))
+}
+
+export const setFilter = (query) => (dispatch) => {
+  dispatch(setFilterQuery(query))
 }
 
 export default configureStore({

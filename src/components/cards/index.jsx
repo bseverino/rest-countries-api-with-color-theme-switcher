@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
@@ -9,7 +9,20 @@ const Wrapper = styled.div`
 `
 
 function Cards({ countries }) {
-  const { loading, error } = useSelector((state) => state.countries)
+  const { searchQuery, filterQuery, loading, error } = useSelector(
+    (state) => state.countries
+  )
+  const [filteredCountries, setFilteredCountries] = useState([])
+
+  useEffect(() => {
+    setFilteredCountries(
+      countries.filter(
+        (country) =>
+          country.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+          country.region.includes(filterQuery)
+      )
+    )
+  }, [countries, searchQuery, filterQuery])
 
   if (loading) {
     return <p>Loading...</p>
@@ -18,7 +31,7 @@ function Cards({ countries }) {
   } else {
     return (
       <Wrapper>
-        {countries.map((country) => (
+        {filteredCountries.map((country) => (
           <Card key={country.name} country={country} />
         ))}
       </Wrapper>

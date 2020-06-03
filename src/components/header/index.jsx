@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { toggle } from '../../redux'
@@ -15,14 +16,17 @@ const Wrapper = styled.header`
   box-shadow: ${({ theme }) => theme.shadow};
 `
 
-const Title = styled.h1`
+const Title = styled(Link)`
   font-weight: ${({ theme }) => theme.bold};
   font-size: 1.8rem;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
 `
 
 const Button = styled.button`
   background: none;
   border: none;
+  color: ${({ theme }) => theme.text};
   font-size: 1.6rem;
 `
 
@@ -35,7 +39,9 @@ function Header() {
 
   return (
     <Wrapper>
-      <Title>Where in the world?</Title>
+      <Title to='/'>
+        <h1>Where in the world?</h1>
+      </Title>
       <Button onClick={toggleDarkMode}>Dark Mode</Button>
     </Wrapper>
   )
