@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../../redux'
@@ -18,7 +18,6 @@ const Dropdown = styled.select`
 function Filter() {
   const dispatch = useDispatch()
   const { filterQuery } = useSelector((state) => state.countries)
-  const [query, setQuery] = useState('')
 
   const handleChange = (e) => {
     dispatch(setFilter(e.target.value))
